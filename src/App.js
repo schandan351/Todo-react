@@ -34,7 +34,9 @@ export default class App extends Component{
 
   }
   clearList=()=>{
-    console.log("clear list");
+    this.setState({
+      items:[]
+    })
   }
   handleDelete=(id)=>{
     console.log("Handle delete");
