@@ -2,9 +2,7 @@ import React ,{Component} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css"
 import uuid from "uuid";
 import TodoInput from './components/TodoInput';
-import TodoItem from './components/TodoItem';
 import TodoList from './components/TodoList';
-
 export default class App extends Component{
   state={
     items:[],
@@ -39,13 +37,20 @@ export default class App extends Component{
     })
   }
   handleDelete=(id)=>{
-    const filteredItems=this.state.items.filter(item=>item.id!==id);
+    const filteredItems=this.state.items.filter(item=>item.id !==id);
     this.setState({
       items:filteredItems
     })
   }
   handleEdit=(id)=>{
-    console.log(`handle edit ${id}`);
+    const filteredItems=this.state.items.filter(item=>item.id !==id);
+    const selectedItem=this.state.items.find(item=>item.id ===id);
+    this.setState({
+      items:filteredItems,
+      item:selectedItem.title,
+      id:id,
+      editItem:true
+    });
     
   }
   render(){
@@ -55,9 +60,9 @@ export default class App extends Component{
           <div className="col-10 mx-auto col-md-8 mt-5">
               <h3 className="text-capitalize text-center">Todo Input</h3>
               <TodoInput item={this.state.item} handleChange={this.handleChange}
-                handleSubmit={this.handleSubmit}
+                handleSubmit={this.handleSubmit} editItem={this.state.editItem}
               />
-              <TodoList items={this.state.items} handleDelete={this.handleDelete}
+              <TodoList  items={this.state.items} handleDelete={this.handleDelete}
                 clearList={this.clearList} handleEdit={this.handleEdit}
               />
           </div>
